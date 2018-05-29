@@ -1,0 +1,64 @@
+image: python:3.6
+
+services:
+  - name: bitnami/mongodb:latest
+    alias: db
+
+stages:
+  - test
+  - deploy
+
+before_script:
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+  - pip install -r requirements.txt
+
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - venv/
+
+coverage:
+  stage: test
+  only:
+    - master
+    - develop
+    - staging
+  script:
+    - python manage.py test --coverage
+  coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
+
+deploy_dev:
+  stage: deploy
+  only:
+    - develop
+  script:
+    - zappa update dev
+
+  environment:
+      name: development
+      url: https://dev.deepscent.make.codes/api/docs/
+
+deploy_staging:
+  stage: deploy
+  only:
+    - staging
+  script:
+    - zappa update staging
+
+  environment:
+      name: staging
+      url: https://dev-qa.api.deepscent.io/api/docs/
+
+deploy_master:
+  stage: deploy
+  only:
+    - master
+  script:
+    - zappa update master
+
+  environment:
+      name: master
+      url: https://api.deepscent.io/api/docs/

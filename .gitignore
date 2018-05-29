@@ -1,0 +1,11 @@
+*.pyc
+.DS_Store
+.idea
+.coverage
+.json
+manage.py
+words.txt
+readme.txt
+gitlab-ci.yml
+apitools.py
+

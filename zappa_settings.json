@@ -1,0 +1,56 @@
+{
+    "dev": {
+        "app_function": "deepscent.app.app",
+        "aws_region": "ap-northeast-2",
+        "project_name": "deepscent-server",
+        "runtime": "python3.6",
+        "s3_bucket": "zappa-qa71x0u9f",
+        "domain": "develop.deepscent.io",
+        "certificate_arn":"arn:aws:acm:us-east-1:049265222378:certificate/a390c1d7-289a-4af1-b364-561596bfdc2b" ,
+        "aws_environment_variables": {
+            "AWS": "true",
+            "DEV_SERVER": "true"
+        },
+        "extra_permissions": [{
+            "Effect": "Allow",
+            "Action": ["iot:*", "ses:*"],
+            "Resource": "*"
+        }]
+    },
+    "staging": {
+        "app_function": "deepscent.app.app",
+        "aws_region": "ap-northeast-2",
+        "project_name": "deepscent-server",
+        "runtime": "python3.6",
+        "s3_bucket": "zappa-an25sa00a",
+        "domain": "staging.deepscent.io",
+        "certificate_arn":"arn:aws:acm:us-east-1:049265222378:certificate/5fbf9470-4a91-4bf6-be15-ef356318e7ba" ,
+        "aws_environment_variables": {
+            "AWS": "true",
+            "DEV_SERVER": "false"
+        },
+        "extra_permissions": [{
+            "Effect": "Allow",
+            "Action": ["iot:*", "ses:*"],
+            "Resource": "*"
+        }]
+    },
+    "master": {
+        "app_function": "deepscent.app.app",
+        "aws_region": "ap-northeast-2",
+        "project_name": "deepscent-server",
+        "runtime": "python3.6",
+        "s3_bucket": "zappa-pa819zn1m",
+        "domain": "prod.deepscent.io",
+        "certificate_arn":" arn:aws:acm:us-east-1:049265222378:certificate/5fbf9470-4a91-4bf6-be15-ef356318e7ba" ,
+        "aws_environment_variables": {
+            "AWS": "true",
+            "DEV_SERVER": "false"
+        },
+        "extra_permissions": [{
+            "Effect": "Allow",
+            "Action": ["iot:*", "ses:*"],
+            "Resource": "*"
+        }]
+    }
+}
